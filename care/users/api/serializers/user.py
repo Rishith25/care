@@ -388,7 +388,7 @@ class UserBaseMinimumSerializer(serializers.ModelSerializer):
             "user_type",
             "last_login",
             "read_profile_picture_url",
-            "phone_number"
+            "phone_number",
         )
 
 
