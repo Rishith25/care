@@ -40,7 +40,7 @@ from care.users.api.serializers.lsg import (
     StateSerializer,
     WardSerializer,
 )
-from care.users.api.serializers.user import UserBaseMinimumSerializer
+from care.users.api.serializers.user import UserAssignedSerializer, UserBaseMinimumSerializer
 from care.users.models import User
 from care.utils.notification_handler import NotificationGenerator
 from care.utils.queryset.facility import get_home_facility_queryset
@@ -86,7 +86,7 @@ class PatientListSerializer(serializers.ModelSerializer):
     )
     source = ChoiceField(choices=PatientRegistration.SourceChoices)
 
-    assigned_to_object = UserBaseMinimumSerializer(source="assigned_to", read_only=True)
+    assigned_to_object = UserAssignedSerializer(source="assigned_to", read_only=True)
 
     class Meta:
         model = PatientRegistration
@@ -167,7 +167,7 @@ class PatientDetailSerializer(PatientListSerializer):
         choices=PatientRegistration.VaccineChoices, required=False, allow_null=True
     )
 
-    assigned_to_object = UserBaseMinimumSerializer(source="assigned_to", read_only=True)
+    assigned_to_object = UserAssignedSerializer(source="assigned_to", read_only=True)
 
     assigned_to = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all(), required=False, allow_null=True
