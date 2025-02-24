@@ -35,7 +35,8 @@ class FacilityOrganizationViewSet(EMRModelViewSet):
     pydantic_read_model = FacilityOrganizationReadSpec
     pydantic_retrieve_model = FacilityOrganizationRetrieveSpec
     filterset_class = FacilityOrganizationFilter
-    filter_backends = [filters.DjangoFilterBackend]
+    filter_backends = (filters.DjangoFilterBackend, drf_filters.SearchFilter)
+    search_fields = ["name"]
 
     def get_organization_obj(self):
         return get_object_or_404(
